@@ -13,8 +13,18 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
 
+    - name: Check if Release folder exists
+      id: check_release_folder
+      run: |
+        if [ -d "Release" ]; then
+          echo "::set-output name=exists::true"
+        else
+          echo "::set-output name=exists::false"
+        fi
+
     - name: Create Release
       id: create_release
+      if: steps.check_release_folder.outputs.exists == 'true'
       uses: ncipollo/release-action@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
@@ -26,14 +36,16 @@ jobs:
         artifacts: Release/*
 
     - name: Delete Release folder
+      if: steps.check_release_folder.outputs.exists == 'true'
       run: rm -rf Release
 
     - name: Commit changes
+      if: steps.check_release_folder.outputs.exists == 'true'
       run: |
         git config --global user.name 'github-actions[bot]'
         git config --global user.email 'github-actions[bot]@users.noreply.github.com'
         git add .
         git commit -m "GitHub Actions: Delete Release folder after creating release."
-        git push
+        git push origin HEAD:master
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
