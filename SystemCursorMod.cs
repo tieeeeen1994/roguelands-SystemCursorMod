@@ -1,13 +1,11 @@
-using UnityEngine;
 using GadgetCore.API;
-using HarmonyLib;
 
 namespace SystemCursorMod
 {
     [Gadget("System Cursor Mod", true)]
     public class SystemCursorMod : Gadget<SystemCursorMod>
     {
-        public const string MOD_VERSION = "1.1"; // Set this to the version of your mod.
+        public const string MOD_VERSION = "1.2"; // Set this to the version of your mod.
         public const string CONFIG_VERSION = "1.0"; // Increment this whenever you change your mod's config file.
 
         // private Harmony harmony = new Harmony("com.tien.systemcursormod");
