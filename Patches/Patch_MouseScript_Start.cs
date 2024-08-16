@@ -1,17 +1,17 @@
-using HarmonyLib;
 using GadgetCore.API;
+using HarmonyLib;
 using UnityEngine;
 
 namespace SystemCursorMod.Patches // You may create multiple files like this. Use the prefix, the postfix, or both. You can also use a Transpiler if you wish.
 {
     [HarmonyPatch(typeof(MouseScript))]
     [HarmonyPatch("Start")]
-    [HarmonyGadget("SystemCursorMod")]
+    [HarmonyGadget("System Cursor Mod")]
     public static class Patch_MouseScript_Start
     {
 
         [HarmonyPrefix]
-        public static bool Prefix(MouseScript __instance)
+        public static bool Prefix()
         {
             // Add code to run before `MethodName` is called.
             Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
